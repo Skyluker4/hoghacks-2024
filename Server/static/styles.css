@@ -13,7 +13,7 @@ body {
 
 /* Top navigation bar */
 .topnav {
-    background-color: #333;
+    background-color: #3b5e8c;
     overflow: hidden;
     height: 50px;
     display: flex;
@@ -37,7 +37,7 @@ body {
 }
 
 .green {
-    background-color: green;
+    background-color: #f27244;
     height: auto;
     width: auto;
 }
@@ -67,14 +67,14 @@ body {
 
 /* Column 1 */
 .column1 {
-    background-color: red;
-    color: red;
+    background-color: #183357;
+    color: #183357;
 }
 
 /* Column 2 */
 .column2 {
-    background-color: blue;
-    color: blue;
+    background-color: #183357;
+    color: #183357;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,7 +85,7 @@ body {
     display: flex;
     width: 100%;
     height: 50%;
-    background-color: black;
+    background-color: 183357;
     align-items: center;
     
 }
@@ -100,7 +100,7 @@ li {
 }
 
 hr {
-    background-color: white;
+    background-color: #f27244;
 }
 
 .gameStats {
@@ -108,5 +108,15 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.gameStats ul {
+    display: flex;
+    list-style: none;
+    padding: 115px;
+}
+
+.gameStats li {
+    margin-right: 10px
 }
 
