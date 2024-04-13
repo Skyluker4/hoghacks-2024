@@ -3,6 +3,7 @@ from . import game as g
 from . import formation as f
 from . import situation as s
 from . import play as p
+from . import position as pos
 
 client_bp = Blueprint("client", __name__)
 
@@ -159,7 +160,7 @@ def handle_new_play():
 
     g.game.other_formation = f.Formation(their_formation)
     g.game.current_formation = f.Formation(own_formation)
-    #g.game.situation.position = s.Position(position, down, distance)
+    g.game.situation.position = pos.Position(position, down, distance)
     g.game.previous_plays_and_situations.append((play, g.game.situation))
 
     g.game.predict()
