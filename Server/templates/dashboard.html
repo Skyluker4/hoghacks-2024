@@ -26,7 +26,7 @@
               </video>
               {% else %}
                 <form action="{{ url_for('client.handle_predict') }}" method="post">
-                  <select id="their_formation">
+                  <select name="theirformation">
                     <option value="select">Select their formation</option>
                     {% for their_formation in their_formations %}
                     <option value="{{ their_formation }}">{{ their_formation }}</option>
@@ -36,28 +36,28 @@
                 </form>
 
                 <form action="{{ url_for('client.handle_new_play') }}" method="post">
-                  <select id="their_formation">
+                  <select name="their_formation">
                     <option value="select">Select their formation</option>
                     {% for their_formation in their_formations %}
                     <option value="{{ their_formation }}">{{ their_formation }}</option>
                     {% endfor %}
                   </select>
 
-                  <select id="own_formation">
+                  <select name="own_formation">
                     <option value="select">Select your formation</option>
                     {% for own_formation in own_formations %}
                     <option value="{{ own_formation }}">{{ own_formation }}</option>
                     {% endfor %}
                   </select>
 
-                  <select id="play">
+                  <select name="play">
                     <option value="select">Select what they ran</option>
                     {% for play in plays_avail %}
                     <option value="{{ play['number'] }}">{{ play['name'] }}</option>
                     {% endfor %}
                   </select>
 
-                  <select id="down">
+                  <select name="down">
                     <option value="select">Select down</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -65,9 +65,9 @@
                     <option value="4">4</option>
                   </select>
 
-                  <input id="position" type="number" placeholder="Enter ball position (-50 - 50)">
+                  <input name="position" type="number" placeholder="Enter ball position (-50 - 50)">
 
-                  <input id="distance" type="number" placeholder="Enter 1st down distance (0+)">
+                  <input name="distance" type="number" placeholder="Enter 1st down distance (0+)">
 
                   <input type="submit">
                 </form>
