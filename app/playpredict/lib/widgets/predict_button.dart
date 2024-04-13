@@ -36,7 +36,7 @@ class _PredictButtonState extends State<PredictButton> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.3,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         border: Border.all(
@@ -48,13 +48,15 @@ class _PredictButtonState extends State<PredictButton> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          print(predictions);
+          for (final prediction in predictions!) {
+            print(prediction.name);
+          }
         },
         child: Column(children: [
+          const Spacer(),
           const Icon(Icons.sports_football_outlined, size: 192),
           const Spacer(),
           Text(predictions?[0].name ?? 'Waiting...', style: bigText()),
-          const SizedBox(height: 20),
         ]),
       ),
     );
