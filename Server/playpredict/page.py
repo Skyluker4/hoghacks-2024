@@ -10,4 +10,4 @@ bp = Blueprint('hello', __name__)
 
 @bp.route('/hello')
 def hello():
-    return render_template('index.html')
+    return render_template('dashboard.html')
