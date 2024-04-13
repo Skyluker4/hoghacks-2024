@@ -4,7 +4,71 @@ Hackathon Spring 2024
 ## API
 GET /api/v1/formations
 
+```json
+[
+    {
+        "image": "/images/placeholder.png",
+        "name": "4-3 Formation",
+        "weight": 1.0
+    },
+    {
+        "image": "/images/placeholder.png",
+        "name": "3-4 Formation",
+        "weight": 1.0
+    },
+    {
+        "image": "/images/placeholder.png",
+        "name": "Nickel Formation",
+        "weight": 1.0
+    },
+    {
+        "image": "/images/placeholder.png",
+        "name": "Dime Formation",
+        "weight": 1.0
+    },
+    {
+        "image": "/images/placeholder.png",
+        "name": "Quarter Formation",
+        "weight": 1.0
+    },
+    {
+        "image": "/images/placeholder.png",
+        "name": "Goal Line Formation",
+        "weight": 1.0
+    }
+]
+```
+
 GET /api/v1/predictions
+
+```json
+[
+    {
+        "formation": "I Formation",
+        "image": "/static/images/placeholder.png",
+        "name": "Run",
+        "weight": 1.0
+    },
+    {
+        "formation": "I Formation",
+        "image": "/static/images/placeholder.png",
+        "name": "PA Pass",
+        "weight": 1.0
+    },
+    {
+        "formation": "I Formation",
+        "image": "/static/images/placeholder.png",
+        "name": "Screen Pass",
+        "weight": 1.0
+    },
+    {
+        "formation": "Singleback Formation",
+        "image": "/static/images/placeholder.png",
+        "name": "Run",
+        "weight": 1.0
+    }
+]
+```
 
 GET /api/v1/situation
 
@@ -12,10 +76,10 @@ GET /api/v1/situation
 {
     "away_score": 0,
     "home_score": 0,
+    "is_possessing_team": false,
     "position": {
         "distance": 10,
         "down": 1,
-        "is_possessing_team": false,
         "yard": 0
     },
     "quarter": 1,
