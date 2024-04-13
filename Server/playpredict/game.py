@@ -90,3 +90,7 @@ class Game:
         return json.dumps(
             self.formations, default=lambda o: o.__dict__, sort_keys=True, indent=4
         )
+
+def initGame():
+    global game
+    game = Game("Bentonville West", "Bentonville", True)
