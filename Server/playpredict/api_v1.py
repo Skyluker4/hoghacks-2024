@@ -14,15 +14,17 @@ game = g.Game("Bentonville West", "Bentonville", True)
 @api_v1_bp.route("/formations", methods=["GET"])
 def get_formations():
     global game
-    # Return an array of Formations with their suggested weights
-    return jsonify(game.formations)
+    return game.jsonFormations()
 
 
-# Predict what the next play will be by the other team
+# Predict what the next play will be by the other team, given your formation (optionally)
 @api_v1_bp.route("/predictions", methods=["GET"])
 def get_predictions():
     global game
-    # Logic to retrieve prediction
+
+    formation_name = request.args.get("formation")
+    game.updateCurrentFormation(formation_name)
+
     return game.jsonPredictions()
 
 
@@ -45,6 +47,30 @@ def set_time():
 
     return "", 204
 
+@api_v1_bp.route("/score", methods=["POST"])
+def update_score():
+    global game
+    score = request.json["home_score"], request.json["away_score"]
+    game.updateScore(score)
+    return "", 204
+
+@api_v1_bp.route("/possession", methods=["POST"])
+def update_possession():
+    global game
+    is_possessing_team = request.json["is_possessing_team"]
+    game.updatePossession(is_possessing_team)
+    return "", 204
+
+@api_v1_bp.route("/position", methods=["POST"])
+def update_position():
+    global game
+    position = (
+        request.json["distance"],
+        request.json["down"],
+        request.json["yard"],
+    )
+    game.updatePosition(position)
+    return "", 204
 
 @api_v1_bp.route("/reset", methods=["POST"])
 def reset():

@@ -15,3 +15,16 @@ class Play:
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+offense_plays = [
+    Play("I Formation", "Run"),
+    Play("I Formation", "PA Pass"),
+    Play("I Formation", "Screen Pass"),
+    Play("Singleback Formation", "Run")
+]
+
+defense_plays = [
+    Play("4-3 Formation", "Cover 2"),
+    Play("4-3 Formation", "Cover 3"),
+    Play("4-3 Formation", "Cover 1")
+]
