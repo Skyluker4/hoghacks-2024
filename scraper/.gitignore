@@ -1,3 +1,5 @@
 videos/*
 thesecrets.py
 *.csv
+*.tsv
+*.json
