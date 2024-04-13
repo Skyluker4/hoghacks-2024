@@ -1,4 +1,4 @@
-/*// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,17 +7,19 @@ part 'prediction.g.dart';
 @JsonSerializable()
 class Prediction {
   Prediction({
-    required this.id,
+    required this.formation,
+    required this.image,
     required this.name,
-    required this.prediction,
+    required this.weight,
   });
 
   factory Prediction.fromJson(Map<String, dynamic> json) =>
       _$PredictionFromJson(json);
 
-  final int id;
+  final String formation;
+  final String image;
   final String name;
-  final String prediction;
+  final double weight;
 
   Map<String, dynamic> toJson() => _$PredictionToJson(this);
-}*/
+}
