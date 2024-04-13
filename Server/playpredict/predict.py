@@ -1,6 +1,6 @@
 from . import play as p, formation as f
 
-# TODO: Actually predict. Take in situation, current formation, other formation, and previous plays
+# TODO: Actually predict.
 
 # Your team is possessing the ball
 # Suggest a list of offensive plays (based on game's situation, the other team's defense's formation, your current offensive formation, and previous plays)
