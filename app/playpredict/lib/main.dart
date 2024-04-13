@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:playpredict/home.dart';
+import 'package:playpredict/pages/home.dart';
 
 Future<void> main() async {
   runApp(const PlayPredict());
