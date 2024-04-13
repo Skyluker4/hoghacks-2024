@@ -12,7 +12,7 @@ class Formation:
             self.image = f"/static/img/{name}.svg"
         else:
             # Randomly select /static/img/formplaceholder#.svg where # is 1-3
-            self.image = f"/static/img/formplaceholder{random.randint(1, 3)}.png"
+            self.image = f"/static/img/formplaceholder{random.randint(1, 3)}.jpg"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
