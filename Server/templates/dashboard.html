@@ -27,7 +27,7 @@
               {% else %}
                 <form action="{{ url_for('client.handle_predict') }}" method="post">
                   <select name="theirformation">
-                    <option value="select">Select their formation</option>
+                    <option value="select">Select their formation - predict</option>
                     {% for their_formation in their_formations %}
                     <option value="{{ their_formation }}">{{ their_formation }}</option>
                     {% endfor %}
@@ -98,7 +98,7 @@
 
             <hr style="height: 5px; width: 100%;" />
 
-            <div class="Predictions">
+            <div class="Predictions" style = "overflow-y: scroll; height: 200px;">
               <ul>
                 {% for prediction in predictions %}
                 <li>#{{ prediction['rank'] }} - {{ prediction['play'] }}, {{ prediction['formation'] }}</li>
