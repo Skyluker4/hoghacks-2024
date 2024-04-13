@@ -7,10 +7,10 @@ class Formation:
         self.name = name
         self.weight = weight
         # Check if formation has an image file, otherwise use placeholder
-        if os.path.exists(f"./static/images/formation/{name}.png"):
-            self.image = f"/static/images/{name}.png"
+        if os.path.exists(f"./static/img/formation/{name}.svg"):
+            self.image = f"/static/img/{name}.svg"
         else:
-            self.image = "/static/images/placeholder.png"
+            self.image = "/static/img/placeholder.svg"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
