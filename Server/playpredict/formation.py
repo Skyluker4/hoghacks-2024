@@ -1,6 +1,6 @@
 import os
 import json
-
+import pandas
 
 class Formation:
     def __init__(self, name, weight=1.0):
@@ -15,23 +15,23 @@ class Formation:
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-offense_formations = [
-    Formation("I Formation"),
-    Formation("Singleback Formation"),
-    Formation("Shotgun Formation"),
-    Formation("Pistol Formation"),
-    Formation("Empty Formation"),
-    Formation("Wildcat Formation"),
-]
+data = pandas.read_csv("data/data.tsv", sep="\t")
 
-defense_formations = [
-    Formation("4-3 Formation"),
-    Formation("3-4 Formation"),
-    Formation("Nickel Formation"),
-    Formation("Dime Formation"),
-    Formation("Quarter Formation"),
-    Formation("Goal Line Formation"),
-]
+offense_formations_str = []
+defense_formations_str = []
+for index, row in data.iterrows():
+    offense_formations_str.append(str(row["Offensive Formation"]))
+    if str(row["Defensive Front"]) != "nan":
+        defense_formations_str.append(str(row["Defensive Front"]))
+# Only keep unique formations
+offense_formations_str = list(set(offense_formations_str))
+defense_formations_str = list(set(defense_formations_str))
+offense_formations = []
+defense_formations = []
+for formation in offense_formations_str:
+    offense_formations.append(Formation(formation))
+for formation in defense_formations_str:
+    defense_formations.append(Formation(formation))
 
 def findFormation(name):
     for formation in offense_formations:

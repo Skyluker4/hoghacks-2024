@@ -1,5 +1,6 @@
 import os
 import json
+import pandas
 
 
 class Play:
@@ -16,15 +17,21 @@ class Play:
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-offense_plays = [
-    Play("I Formation", "Run"),
-    Play("I Formation", "PA Pass"),
-    Play("I Formation", "Screen Pass"),
-    Play("Singleback Formation", "Run")
-]
 
-defense_plays = [
-    Play("4-3 Formation", "Cover 2"),
-    Play("4-3 Formation", "Cover 3"),
-    Play("4-3 Formation", "Cover 1")
-]
+data = pandas.read_csv("data/data.tsv", sep="\t")
+
+offense_plays_str = []
+defense_plays_str = []
+for index, row in data.iterrows():
+    offense_plays_str.append((str(row["Offensive Formation"]), str(row["Offensive Play"])))
+    if str(row["Defensive Play"]) != "nan":
+        defense_plays_str.append((str(row["Defensive Front"]), str(row["Defensive Play"])))
+# Only keep unique plays
+offense_plays_str = list(set(offense_plays_str))
+defense_plays_str = list(set(defense_plays_str))
+offense_plays = []
+defense_plays = []
+for f, p in offense_plays_str:
+    offense_plays.append(Play(f, p))
+for f, p in defense_plays_str:
+    defense_plays.append(Play(f, p))
