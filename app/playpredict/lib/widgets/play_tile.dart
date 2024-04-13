@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:playpredict/models/formation.dart';
+import 'package:playpredict/shared/style.dart';
+
 class PlayTile extends StatefulWidget {
-  const PlayTile({super.key});
+  const PlayTile({super.key, required this.formation});
+
+  final Formation formation;
 
   @override
   State<PlayTile> createState() => _PlayTileState();
@@ -13,7 +18,7 @@ class _PlayTileState extends State<PlayTile> {
     return Container(
       margin: const EdgeInsets.only(left: 10),
       padding: const EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.height * 0.3,
+      width: MediaQuery.of(context).size.width * 0.25,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         border: Border.all(
@@ -32,14 +37,7 @@ class _PlayTileState extends State<PlayTile> {
             color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
           const Spacer(),
-          Text(
-            'Play',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(widget.formation.name, style: smallText()),
         ],
       ),
     );

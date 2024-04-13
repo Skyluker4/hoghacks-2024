@@ -14,7 +14,7 @@ class API {
     List<Formation> formations = [];
 
     try {
-      final response = await dio.get('${url}api/v1/situation');
+      final response = await dio.get('${url}api/v1/formations');
       for (var formation in response.data) {
         formations.add(Formation.fromJson(formation));
       }
@@ -30,7 +30,7 @@ class API {
     List<Prediction> predictions = [];
 
     try {
-      final response = await dio.get('${url}api/v1/situation');
+      final response = await dio.get('${url}api/v1/predictions');
       for (var prediction in response.data) {
         predictions.add(Prediction.fromJson(prediction));
       }

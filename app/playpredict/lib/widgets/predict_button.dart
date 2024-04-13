@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:playpredict/shared/style.dart';
+import 'package:playpredict/models/prediction.dart';
+import 'package:playpredict/shared/api.dart';
 
 class PredictButton extends StatefulWidget {
   const PredictButton({super.key});
@@ -10,10 +14,29 @@ class PredictButton extends StatefulWidget {
 }
 
 class _PredictButtonState extends State<PredictButton> {
+  Timer? timer;
+  List<Prediction>? predictions;
+
+  @override
+  void initState() {
+    super.initState();
+    _getPredictions();
+    timer =
+        Timer.periodic(const Duration(seconds: 1), (_) => _getPredictions());
+  }
+
+  Future<void> _getPredictions() async {
+    final newPredictions = await API.getPredictions();
+    setState(() {
+      predictions = newPredictions;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.3,
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         border: Border.all(
@@ -25,11 +48,14 @@ class _PredictButtonState extends State<PredictButton> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          print('Predict');
+          print(predictions);
         },
-        child: Center(
-          child: Text('Predict', style: bigText()),
-        ),
+        child: Column(children: [
+          const Icon(Icons.sports_football_outlined, size: 192),
+          const Spacer(),
+          Text(predictions?[0].name ?? 'Waiting...', style: bigText()),
+          const SizedBox(height: 20),
+        ]),
       ),
     );
   }
