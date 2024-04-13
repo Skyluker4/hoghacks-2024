@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
           final formation = formations![index];
           return PlayTile(
               formation: formation,
-              onTap: () => selectFormation(index),
+              onTap: () => _selectFormation(index),
               selected: index == selectedFormation);
         },
         separatorBuilder: (context, index) => const SizedBox(width: 10),
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void selectFormation(int index) {
+  void _selectFormation(int index) {
     setState(() {
       selectedFormation = index;
     });

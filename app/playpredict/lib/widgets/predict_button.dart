@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:playpredict/shared/style.dart';
 import 'package:playpredict/models/prediction.dart';
 import 'package:playpredict/shared/api.dart';
+import 'package:playpredict/pages/predict.dart';
 
 class PredictButton extends StatefulWidget {
   const PredictButton({super.key});
@@ -51,9 +52,12 @@ class _PredictButtonState extends State<PredictButton> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          for (final prediction in predictions!) {
-            print(prediction.name);
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PredictionPage(predictions: predictions!),
+            ),
+          );
         },
         child: Column(children: [
           Expanded(
