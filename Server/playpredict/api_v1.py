@@ -1,33 +1,48 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 import time as t
-from . import formation
+from . import game as g
 
 api_v1_bp = Blueprint('api_v1', __name__,)
 
+game = g.Game("Bentonville West", "Bentonville", True)
+
+# This function gets an array of selectable formations by the current team
 @api_v1_bp.route("/formations", methods=["GET"])
 def get_formations():
-    # Logic to retrieve formations
-    current_formation = formation.Formation('Doubles')
-    return current_formation.toJSON()
+	global game
+	# Return an array of Formations with their suggested weights
+	return jsonify(game.formations)
 
 
-@api_v1_bp.route("/prediction", methods=["GET"])
-def get_prediction():
-    # Logic to retrieve prediction
-    prediction = 'Team A will win'
-    return jsonify(prediction)
+# Predict what the next play will be by the other team
+@api_v1_bp.route("/predictions", methods=["GET"])
+def get_predictions():
+	global game
+	# Logic to retrieve prediction
+	return game.predictions
 
 
 @api_v1_bp.route("/situation", methods=["GET"])
 def get_situation():
 	# Logic to retrieve situation
-	situation = 'Team B is leading 2-1'
-	return jsonify(situation)
+	global game
+	return game.situation.toJSON()
 
 
 @api_v1_bp.route("/time", methods=["POST"])
 def set_time():
-    # The request body is the time
-    time = t.strptime(request.json['time'], "%M:%S")
-    quarter = int(request.json['quarter'])
-    return "", 204
+	global game
+	# The request body is the time
+	time = t.strptime(request.json['time'], "%M:%S")
+	quarter = int(request.json['quarter'])
+
+	game.situation.time = time
+	game.situation.quarter = quarter
+
+	return "", 204
+
+@api_v1_bp.route("/reset", methods=["POST"])
+def reset():
+	global game
+	game = g.Game("Bentonville West", "Bentonville", True)
+	return "", 204
