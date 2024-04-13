@@ -33,3 +33,29 @@ POST /api/v1/time
 ```
 
 POST /api/v1/reset
+
+POST /api/v1/score
+
+```json
+{
+  "away_score": 0,
+  "home_score": 0
+}
+
+POST /api/v1/possession
+
+```json
+{
+  "is_possessing_team": true
+}
+```
+
+POST /api/v1/position
+
+```json
+{
+  "distance": 10,
+  "down": 1,
+  "yard": 0
+}
+```

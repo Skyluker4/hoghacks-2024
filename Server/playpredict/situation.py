@@ -4,14 +4,21 @@ from . import position
 
 
 class Situation:
+
     def __init__(
-        self, time=t.strptime("15:00", "%M:%S"), quarter=1, home_score=0, away_score=0
+        self,
+        time=t.strptime("15:00", "%M:%S"),
+        quarter=1,
+        home_score=0,
+        away_score=0,
+        is_possessing_team=False,
     ):
         self.time = time
         self.quarter = quarter
         self.home_score = home_score
         self.away_score = away_score
         self.position = position.Position()
+        self.is_possessing_team = is_possessing_team
 
     def toJSON(self):
         json_dat = json.dumps(
