@@ -13,8 +13,8 @@ body {
 
 /* Top navigation bar */
 .topnav {
-    background-color: #3b5e8c;
-    overflow: hidden;
+    background-color: #183357;
+    overflow: scroll;
     height: 50px;
     display: flex;
     justify-content:center;
@@ -67,14 +67,14 @@ body {
 
 /* Column 1 */
 .column1 {
-    background-color: #183357;
-    color: #183357;
+    background-color: #219EBC;
+    color: #219EBC;
 }
 
 /* Column 2 */
 .column2 {
-    background-color: #183357;
-    color: #183357;
+    background-color: #219EBC;
+    color: #219EBC;
     display: flex;
     flex-direction: column;
     align-items: center;
