@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'package:playpredict/widgets/play_tile.dart';
 import 'package:playpredict/widgets/predict_button.dart';
 import 'package:playpredict/shared/style.dart';
+import 'package:playpredict/models/situation.dart';
+import 'package:playpredict/shared/api.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,6 +15,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Timer? timer;
+  Situation? situation;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => _getSituation());
+  }
+
+  Future<void> _getSituation() async {
+    final newSituation = await API.getSituation();
+    setState(() {
+      situation = newSituation;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,19 +47,19 @@ class _HomeState extends State<Home> {
                   children: [
                     Column(
                       children: [
-                        _bigData('Quarter', '1st'),
+                        _bigData('Quarter', _getQuarter()),
                         const Spacer(),
-                        _bigData('Down', '1st & 10'),
+                        _bigData('Down', _getDown()),
                       ],
                     ),
                     Column(
                       children: [
-                        _bigData('Time', '15:00'),
+                        _bigData('Time', situation?.time ?? 'N/A'),
                         const Spacer(),
-                        _bigData('Yard Line', '50'),
+                        _bigData('Yard Line', _getYardage()),
                       ],
                     ),
-                    PredictButton(),
+                    const PredictButton(),
                   ],
                 ),
               ),
@@ -86,5 +105,64 @@ class _HomeState extends State<Home> {
       indent: indent,
       endIndent: indent,
     );
+  }
+
+  String _getQuarter() {
+    if (situation == null) {
+      return 'N/A';
+    }
+    switch (situation!.quarter) {
+      case 1:
+        return '1st';
+      case 2:
+        return '2nd';
+      case 3:
+        return '3rd';
+      case 4:
+        return '4th';
+      default:
+        return 'N/A';
+    }
+  }
+
+  String _getDown() {
+    if (situation == null) {
+      return 'N/A';
+    }
+    String down;
+    switch (situation!.position.down) {
+      case 1:
+        down = '1st';
+        break;
+      case 2:
+        down = '2nd';
+        break;
+      case 3:
+        down = '3rd';
+        break;
+      case 4:
+        down = '4th';
+        break;
+      default:
+        down = 'N/A';
+    }
+    return '$down & ${situation!.position.distance}';
+  }
+
+  String _getYardage() {
+    if (situation == null) {
+      return 'N/A';
+    }
+    if (situation!.position.yard.isNegative) {
+      return 'Away ${situation!.position.yard.abs()}';
+    } else {
+      return 'Home ${situation!.position.yard}';
+    }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 }
