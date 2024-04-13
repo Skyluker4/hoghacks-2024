@@ -33,11 +33,11 @@ body {
 .topnav p {
     color: white;
     font-weight: bolder;
-    
+    font-size: larger;
 }
 
 .green {
-    background-color: #f27244;
+   /* background-color: #f2ab9b; */
     height: auto;
     width: auto;
 }
@@ -100,7 +100,7 @@ li {
 }
 
 hr {
-    background-color: #f27244;
+    background-color: white;
 }
 
 .gameStats {
@@ -117,6 +117,21 @@ hr {
 }
 
 .gameStats li {
-    margin-right: 10px
+    margin-right: 10px;
 }
 
+.plays ul {
+    padding: 0;
+}
+
+.plays li {
+    margin-bottom: 10px;
+}
+
+.Predictions ul {
+    padding: 0;
+}
+
+.Predictions li {
+    margin-bottom: 10px;
+}
