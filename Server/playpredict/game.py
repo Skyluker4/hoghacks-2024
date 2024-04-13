@@ -62,7 +62,7 @@ class Game:
         # TODO: Actually predict. Take in situation, current formation, other formation, and previous plays
         if self.situation.is_possessing_team:
             # Your team is possessing the ball
-            # Suggest a list of offensive formations (based on situation, defense's formation, current offensive formation, and previous plays)
+            # Suggest a list of offensive plays (based on situation, defense's formation, current offensive formation, and previous plays)
             self.predictions = p.offense_plays
 
             # Suggest a list of offensive formations (based on situation, defense's formation, and previous plays)
