@@ -105,6 +105,7 @@ POST /api/v1/score
   "away_score": 0,
   "home_score": 0
 }
+```
 
 POST /api/v1/possession
 
