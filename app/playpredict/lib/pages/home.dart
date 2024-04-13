@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 import 'package:playpredict/widgets/play_tile.dart';
 import 'package:playpredict/widgets/predict_button.dart';
