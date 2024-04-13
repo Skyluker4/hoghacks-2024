@@ -1,15 +1,14 @@
-from flask import (
-    Blueprint, render_template, jsonify
-)
+from flask import Blueprint, jsonify
+import time as t
+from . import formation
 
 api_v1_bp = Blueprint('api_v1', __name__,)
-
 
 @api_v1_bp.route("/formations", methods=["GET"])
 def get_formations():
     # Logic to retrieve formations
-    formations = ['4-4-2', '4-3-3', '3-5-2']
-    return jsonify(formations)
+    current_formation = formation.Formation('Doubles')
+    return current_formation.toJSON()
 
 
 @api_v1_bp.route("/prediction", methods=["GET"])
@@ -24,3 +23,11 @@ def get_situation():
 	# Logic to retrieve situation
 	situation = 'Team B is leading 2-1'
 	return jsonify(situation)
+
+
+@api_v1_bp.route("/time", methods=["POST"])
+def set_time():
+    # The request body is the time
+    time = t.strptime(request.json['time'], "%M:%S")
+    quarter = int(request.json['quarter'])
+    return "", 204
