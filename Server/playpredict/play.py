@@ -1,6 +1,7 @@
 import os
 import json
 import pandas
+import random
 
 
 class Play:
@@ -12,7 +13,8 @@ class Play:
         if os.path.exists(f"./static/img/formations/plays/{formation}/{name}.svg"):
             self.image = f"/static/img/formations/plays/{formation}/{name}.svg"
         else:
-            self.image = "/static/img/placeholder.svg"
+            # Randomly select /static/img/playplaceholder#.svg where # is 1-4
+            self.image = f"/static/img/playplaceholder{random.randint(1, 4)}.jpg"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

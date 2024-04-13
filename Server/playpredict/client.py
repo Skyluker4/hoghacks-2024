@@ -4,6 +4,7 @@ from . import formation as f
 from . import situation as s
 from . import play as p
 from . import position as pos
+import time
 
 client_bp = Blueprint("client", __name__)
 
@@ -37,6 +38,9 @@ def index():
 
         prediction_table_data.append(a)
 
+    unformatted_time = g.game.situation.time
+    the_time = time.strftime("%M:%S", unformatted_time)
+
     stat_table_data = []
     stat_table_data.append(
         {"name": "Away Score", "value": f"{g.game.situation.away_score}"}
@@ -45,7 +49,7 @@ def index():
         {"name": "Home Score", "value": f"{g.game.situation.home_score}"}
     )
     stat_table_data.append({"name": "Quarter", "value": f"{g.game.situation.quarter}"})
-    stat_table_data.append({"name": "Time", "value": f"{g.game.situation.time}"})
+    stat_table_data.append({"name": "Time", "value": f"{the_time}"})
     stat_table_data.append(
         {"name": "Down", "value": f"{g.game.situation.position.down}"}
     )
@@ -65,7 +69,6 @@ def index():
     their_formations_data = []
     for formation in f.offense_formations:
         their_formations_data.append(formation.name)
-
 
     # p.offense_plays, number and name
     plays_avail_data = []
@@ -111,6 +114,9 @@ def play(playnum):
 
         prediction_table_data.append(a)
 
+    unformatted_time = g.game.situation.time
+    the_time = time.strftime("%M:%S", unformatted_time)
+
     stat_table_data = []
     stat_table_data.append(
         {"name": "Away Score", "value": f"{g.game.situation.away_score}"}
@@ -119,7 +125,7 @@ def play(playnum):
         {"name": "Home Score", "value": f"{g.game.situation.home_score}"}
     )
     stat_table_data.append({"name": "Quarter", "value": f"{g.game.situation.quarter}"})
-    stat_table_data.append({"name": "Time", "value": f"{g.game.situation.time}"})
+    stat_table_data.append({"name": "Time", "value": f"{the_time}"})
     stat_table_data.append(
         {"name": "Down", "value": f"{g.game.situation.position.down}"}
     )
