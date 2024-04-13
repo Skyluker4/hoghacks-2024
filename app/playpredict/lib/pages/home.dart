@@ -20,6 +20,8 @@ class _HomeState extends State<Home> {
   Situation? situation;
   List<Formation>? formations;
 
+  int? selectedFormation;
+
   @override
   void initState() {
     super.initState();
@@ -94,11 +96,20 @@ class _HomeState extends State<Home> {
         itemCount: formations?.length ?? 0,
         itemBuilder: (context, index) {
           final formation = formations![index];
-          return PlayTile(formation: formation);
+          return PlayTile(
+              formation: formation,
+              onTap: () => selectFormation(index),
+              selected: index == selectedFormation);
         },
         separatorBuilder: (context, index) => const SizedBox(width: 10),
       ),
     );
+  }
+
+  void selectFormation(int index) {
+    setState(() {
+      selectedFormation = index;
+    });
   }
 
   Widget _bigData(String title, String data) {

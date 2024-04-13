@@ -6,9 +6,15 @@ import 'package:playpredict/shared/style.dart';
 import 'package:playpredict/shared/api.dart';
 
 class PlayTile extends StatefulWidget {
-  const PlayTile({super.key, required this.formation});
+  const PlayTile(
+      {super.key,
+      required this.formation,
+      required this.onTap,
+      required this.selected});
 
   final Formation formation;
+  final void Function() onTap;
+  final bool selected;
 
   @override
   State<PlayTile> createState() => _PlayTileState();
@@ -29,7 +35,9 @@ class _PlayTileState extends State<PlayTile> {
       padding: const EdgeInsets.all(10),
       width: MediaQuery.of(context).size.width * 0.25,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
+        color: widget.selected
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.primaryContainer,
         border: Border.all(
           color: Theme.of(context).colorScheme.primary,
           width: 3,
@@ -38,9 +46,7 @@ class _PlayTileState extends State<PlayTile> {
       ),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {
-          print(widget.formation.name);
-        },
+        onTap: widget.onTap,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
