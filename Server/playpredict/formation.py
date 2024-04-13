@@ -1,6 +1,7 @@
 import os
 import json
 import pandas
+import random
 
 class Formation:
     def __init__(self, name, weight=1.0):
@@ -10,7 +11,8 @@ class Formation:
         if os.path.exists(f"./static/img/formation/{name}.svg"):
             self.image = f"/static/img/{name}.svg"
         else:
-            self.image = "/static/img/placeholder.svg"
+            # Randomly select /static/img/formplaceholder#.svg where # is 1-3
+            self.image = f"/static/img/formplaceholder{random.randint(1, 3)}.png"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
