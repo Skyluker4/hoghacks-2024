@@ -105,4 +105,4 @@ y_pred_original = le_y.inverse_transform(y_pred_labels)
 print(pd.DataFrame({'Actual': y_test_original, 'Predicted': y_pred_original}))
 
 # Save the model
-#model.save('NN-Model.keras')
+model.save('NN-Model.keras')
