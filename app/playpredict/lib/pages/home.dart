@@ -6,6 +6,7 @@ import 'package:playpredict/widgets/predict_button.dart';
 import 'package:playpredict/shared/style.dart';
 import 'package:playpredict/models/situation.dart';
 import 'package:playpredict/shared/api.dart';
+import 'package:playpredict/models/formation.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,12 +18,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Timer? timer;
   Situation? situation;
+  List<Formation>? formations;
 
   @override
   void initState() {
     super.initState();
-    _getSituation();
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => _getSituation());
+    _getAll();
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => _getAll());
   }
 
   Future<void> _getSituation() async {
@@ -30,6 +32,18 @@ class _HomeState extends State<Home> {
     setState(() {
       situation = newSituation;
     });
+  }
+
+  Future<void> _getFormations() async {
+    final newFormations = await API.getFormations();
+    setState(() {
+      formations = newFormations;
+    });
+  }
+
+  void _getAll() {
+    _getSituation();
+    _getFormations();
   }
 
   @override
@@ -74,18 +88,13 @@ class _HomeState extends State<Home> {
   Widget _playList() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.3,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        children: const [
-          PlayTile(),
-          PlayTile(),
-          PlayTile(),
-          PlayTile(),
-          PlayTile(),
-          PlayTile(),
-          PlayTile(),
-          PlayTile(),
-        ],
+        itemCount: formations?.length ?? 0,
+        itemBuilder: (context, index) {
+          final formation = formations![index];
+          return PlayTile(formation: formation);
+        },
       ),
     );
   }
