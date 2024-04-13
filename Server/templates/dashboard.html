@@ -8,60 +8,106 @@
 </head>
 <body>
 
-    <div class="content">
+  <div class="content">
 
-        <div class="topnav">
-            <div class="green">
-                <p>PlayPredict</p>
+      <div class="topnav">
+          <div class="green">
+              <p>PlayPredict</p>
+          </div>
+      </div>
+
+
+      <div class="information">
+          <div class="column1">
+            <div class="videoViewer">
+              {% if show_video %}
+              <video width=100% height=100% controls>
+                <source src="{{ video_url }}" type="video/mp4">
+              </video>
+              {% else %}
+                <form action="{{ url_for('client.handle_predict') }}" method="post">
+                  <select id="their_formation">
+                    <option value="select">Select their formation</option>
+                    {% for their_formation in their_formations %}
+                    <option value="{{ their_formation }}">{{ their_formation }}</option>
+                    {% endfor %}
+                  </select>
+                  <input type="submit">
+                </form>
+
+                <form action="{{ url_for('client.handle_new_play') }}" method="post">
+                  <select id="their_formation">
+                    <option value="select">Select their formation</option>
+                    {% for their_formation in their_formations %}
+                    <option value="{{ their_formation }}">{{ their_formation }}</option>
+                    {% endfor %}
+                  </select>
+
+                  <select id="own_formation">
+                    <option value="select">Select your formation</option>
+                    {% for own_formation in own_formations %}
+                    <option value="{{ own_formation }}">{{ own_formation }}</option>
+                    {% endfor %}
+                  </select>
+
+                  <select id="play">
+                    <option value="select">Select what they ran</option>
+                    {% for play in plays_avail %}
+                    <option value="{{ play['number'] }}">{{ play['name'] }}</option>
+                    {% endfor %}
+                  </select>
+
+                  <select id="down">
+                    <option value="select">Select down</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+
+                  <input id="position" type="number" placeholder="Enter ball position (-50 - 50)">
+
+                  <input id="distance" type="number" placeholder="Enter 1st down distance (0+)">
+
+                  <input type="submit">
+                </form>
+              {% endif %}
             </div>
-        </div>
 
-
-        <div class="information">
-            <div class="column1">
-              <div class="videoViewer">
-                <video width=100% height=100% controls>
-                  <source src="/static/videos/Wide.mp4" type="video/mp4">
-                </video>
-              </div>
-
-              <div class="gameStats">
+            <div class="gameStats">
+              <ul>
                 {% for stat in stats %}
-                <ul>
-                  <li>{{ stat['name'] }} - {{ stat['value'] }}</li>
-                </ul>
+                <li>{{ stat['name'] }}: {{ stat['value'] }}</li>
                 {% endfor %}
-              </div>
-
+              </ul>
             </div>
 
-            <hr style="height: 100%; width: 5px;" />
+          </div>
 
-            <div class="column2">
-              <div class="plays">
+          <hr style="height: 100%; width: 5px;" />
+
+          <div class="column2">
+            <div class="plays">
+              <ul>
                 {% for play in plays %}
-                <ul>
-                  <li>Play {{ play['number'] }}</li>
-                </ul>
+                <li><a href="/{{ play['number'] }}">Play {{ play['number'] + 1 }}</a></li>
                 {% endfor %}
+              </ul>
 
-              </div>
-
-              <hr style="height: 5px; width: 100%;" />
-
-              <div class="Predictions">
-                {% for prediction in predictions %}
-                <ul>
-                  <li>#{{ prediction['rank'] }} - {{ prediction['play'] }}, {{ prediction['formation'] }}</li>
-                </ul>
-                {% endfor %}
-              </div>
             </div>
+
+            <hr style="height: 5px; width: 100%;" />
+
+            <div class="Predictions">
+              <ul>
+                {% for prediction in predictions %}
+                <li>#{{ prediction['rank'] }} - {{ prediction['play'] }}, {{ prediction['formation'] }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
         </div>
-
-    </div>
-
-
-
+  </div>
 </body>
 </html>
