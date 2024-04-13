@@ -22,18 +22,15 @@
               <div class="videoViewer">
                 <video width=100% height=100% controls>
                   <source src="/static/videos/Wide.mp4" type="video/mp4">
-                  
-                
-                </video> 
+                </video>
               </div>
 
               <div class="gameStats">
+                {% for stat in stats %}
                 <ul>
-                  <li>Stat 1</li>
-                  <li>Stat 2</li>
-                  <li>Stat 3</li>
-                  <li>Stat 4</li>
+                  <li>{{ stat['name'] }} - {{ stat['value'] }}</li>
                 </ul>
+                {% endfor %}
               </div>
 
             </div>
@@ -42,28 +39,22 @@
 
             <div class="column2">
               <div class="plays">
+                {% for play in plays %}
                 <ul>
-                  <li>Play 1</li>
-                  <li>Play 2</li>
-                  <li>Play 3</li>
-                  <li>Play 4</li>
-                  <li>Play 5</li>
-                  <li>Play 6</li>
+                  <li>Play {{ play['number'] }}</li>
                 </ul>
+                {% endfor %}
 
               </div>
 
               <hr style="height: 5px; width: 100%;" />
 
               <div class="Predictions">
+                {% for prediction in predictions %}
                 <ul>
-                  <li>Prediction 1</li>
-                  <li>Prediction 2</li>
-                  <li>Prediction 3</li>
-                  <li>Prediction 4</li>
-                  <li>Prediction 5</li>
-                  <li>Prediction 6</li>
+                  <li>#{{ prediction['rank'] }} - {{ prediction['play'] }}, {{ prediction['formation'] }}</li>
                 </ul>
+                {% endfor %}
               </div>
             </div>
         </div>
