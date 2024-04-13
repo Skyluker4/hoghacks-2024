@@ -88,13 +88,15 @@ class _HomeState extends State<Home> {
   Widget _playList() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.3,
-      child: ListView.builder(
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         itemCount: formations?.length ?? 0,
         itemBuilder: (context, index) {
           final formation = formations![index];
           return PlayTile(formation: formation);
         },
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
       ),
     );
   }
