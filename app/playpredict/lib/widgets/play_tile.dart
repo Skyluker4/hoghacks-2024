@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:playpredict/models/formation.dart';
 import 'package:playpredict/shared/style.dart';
+import 'package:playpredict/shared/api.dart';
 
 class PlayTile extends StatefulWidget {
   const PlayTile({super.key, required this.formation});
@@ -13,6 +15,14 @@ class PlayTile extends StatefulWidget {
 }
 
 class _PlayTileState extends State<PlayTile> {
+  String? imageURL;
+
+  @override
+  void initState() {
+    super.initState();
+    imageURL = API.getImageURL(widget.formation.image);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,13 +44,11 @@ class _PlayTileState extends State<PlayTile> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Spacer(),
-            Icon(
-              Icons.sports_football_outlined,
-              size: 96,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            Expanded(
+              child: imageURL != null
+                  ? SvgPicture.network(imageURL!)
+                  : const Icon(Icons.sports_football_outlined, size: 96),
             ),
-            const Spacer(),
             Text(widget.formation.name, style: smallText()),
           ],
         ),

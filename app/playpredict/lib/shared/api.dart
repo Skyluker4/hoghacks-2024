@@ -6,7 +6,7 @@ import 'package:playpredict/models/prediction.dart';
 import 'package:playpredict/models/situation.dart';
 
 class API {
-  static const String url = 'http://172.20.10.2:5500/';
+  static const String url = 'http://172.20.10.2:5500';
 
   static Future<List<Formation>> getFormations() async {
     final dio = Dio();
@@ -14,7 +14,7 @@ class API {
     List<Formation> formations = [];
 
     try {
-      final response = await dio.get('${url}api/v1/formations');
+      final response = await dio.get('$url/api/v1/formations');
       for (var formation in response.data) {
         formations.add(Formation.fromJson(formation));
       }
@@ -30,7 +30,7 @@ class API {
     List<Prediction> predictions = [];
 
     try {
-      final response = await dio.get('${url}api/v1/predictions');
+      final response = await dio.get('$url/api/v1/predictions');
       for (var prediction in response.data) {
         predictions.add(Prediction.fromJson(prediction));
       }
@@ -46,7 +46,7 @@ class API {
     Situation? situation;
 
     try {
-      final response = await dio.get('${url}api/v1/situation');
+      final response = await dio.get('$url/api/v1/situation');
       situation = Situation.fromJson(response.data);
     } catch (e) {
       print(e);
@@ -54,9 +54,13 @@ class API {
     return situation;
   }
 
+  static String getImageURL(String image) {
+    return url + image;
+  }
+
   static Future<void> postReset() async {
     final dio = Dio();
     dio.httpClientAdapter = NativeAdapter();
-    await dio.post('${url}api/v1/reset');
+    await dio.post('$url/api/v1/reset');
   }
 }

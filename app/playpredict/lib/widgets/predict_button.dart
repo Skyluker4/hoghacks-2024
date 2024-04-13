@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:playpredict/shared/style.dart';
 import 'package:playpredict/models/prediction.dart';
@@ -16,6 +17,7 @@ class PredictButton extends StatefulWidget {
 class _PredictButtonState extends State<PredictButton> {
   Timer? timer;
   List<Prediction>? predictions;
+  String? imageURL;
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _PredictButtonState extends State<PredictButton> {
     final newPredictions = await API.getPredictions();
     setState(() {
       predictions = newPredictions;
+      imageURL = API.getImageURL(predictions?[0].image ?? '');
     });
   }
 
@@ -53,9 +56,11 @@ class _PredictButtonState extends State<PredictButton> {
           }
         },
         child: Column(children: [
-          const Spacer(),
-          const Icon(Icons.sports_football_outlined, size: 192),
-          const Spacer(),
+          Expanded(
+            child: imageURL != null
+                ? SvgPicture.network(imageURL!)
+                : const Icon(Icons.sports_football_outlined, size: 192),
+          ),
           Text(predictions?[0].name ?? 'Waiting...', style: bigText()),
         ]),
       ),
