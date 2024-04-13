@@ -6,16 +6,19 @@ api_v1_bp = Blueprint('api_v1', __name__,)
 
 @api_v1_bp.route("/formations", methods=["GET"])
 def get_formations():
-    # Logic to retrieve formations
-    current_formation = formation.Formation('Doubles')
-    return current_formation.toJSON()
+    return Response(g.game.jsonFormations(), mimetype='application/json')
 
 
-@api_v1_bp.route("/prediction", methods=["GET"])
-def get_prediction():
-    # Logic to retrieve prediction
-    prediction = 'Team A will win'
-    return jsonify(prediction)
+# Predict what the next play will be by the other team, given your formation (optionally)
+@api_v1_bp.route("/predictions", methods=["GET"])
+def get_predictions():
+    formation_name = request.args.get("formation")
+
+    if formation_name:
+        g.game.updateCurrentFormation(formation_name)
+    g.game.predict()
+
+    return Response(g.game.jsonPredictions(), mimetype='application/json')
 
 
 @api_v1_bp.route("/situation", methods=["GET"])
