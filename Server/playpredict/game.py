@@ -1,4 +1,4 @@
-from . import situation as s, formation as f, play as p
+from . import situation as s, formation as f, play as p, predict as pr
 import json
 import os
 
@@ -18,8 +18,8 @@ class Game:
         # Array of predicted plays
         self.predictions = []
 
-        # Array of plays that have been run
-        self.plays = []
+        # Array of plays that have been run (play, situation)
+        self.previous_plays_and_situations = []
 
         # Array of formations that can be selected along with their suggested weights
         # Initalize to all formations with equal weight
@@ -30,7 +30,7 @@ class Game:
 
     # Call after a play is run
     def addPreviousPlay(self, play):
-        self.plays.append((play, self.situation))
+        self.previous_plays_and_situations.append((play, self.situation))
         self.predict()
 
     # Call after the other team gets in formation
@@ -59,22 +59,33 @@ class Game:
         self.predict()
 
     def predict(self, predict_suggested_formations=True):
-        # TODO: Actually predict. Take in situation, current formation, other formation, and previous plays
         if self.situation.is_possessing_team:
             # Your team is possessing the ball
             # Suggest a list of offensive plays (based on situation, defense's formation, current offensive formation, and previous plays)
+            self.predictions = pr.predict_offense_plays(
+                self.situation, self.other_formation, self.current_formation, self.previous_plays_and_situations
+            )
             self.predictions = p.offense_plays
 
             # Suggest a list of offensive formations (based on situation, defense's formation, and previous plays)
             if predict_suggested_formations:
+                self.formations = pr.suggest_offense_formations(
+                    self.situation, self.other_formation, self.previous_plays_and_situations
+                )
                 self.formations = f.offense_formations
         else:
             # Your team is not possessing the ball
             # Suggest a list of offensive plays that the other team is likely to run (based on situation, defense's formation, current offensive formation, and previous plays)
+            self.predictions = pr.predict_offense_plays(
+                self.situation, self.current_formation, self.other_formation, self.previous_plays_and_situations
+            )
             self.predictions = p.offense_plays
 
             # Suggest a defensive formation (based on situation, offense's formation, and previous plays)
             if predict_suggested_formations:
+                self.formations = pr.suggest_defense_formations(
+                    self.situation, self.other_formation, self.previous_plays_and_situations
+                )
                 self.formations = f.defense_formations
 
         # Sort the arrays
