@@ -12,13 +12,35 @@ class _PlayTileState extends State<PlayTile> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 10),
-      width: 200,
+      padding: const EdgeInsets.all(10),
+      width: MediaQuery.of(context).size.height * 0.3,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        color: Theme.of(context).colorScheme.primaryContainer,
+        border: Border.all(
+          color: Theme.of(context).colorScheme.primary,
+          width: 3,
+        ),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: const Center(
-        child: Text('Play'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const Spacer(),
+          Icon(
+            Icons.sports_football_outlined,
+            size: 96,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+          const Spacer(),
+          Text(
+            'Play',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
