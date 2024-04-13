@@ -8,12 +8,27 @@ GET /api/v1/predictions
 
 GET /api/v1/situation
 
+```json
+{
+    "away_score": int,
+    "home_score": int,
+    "position": {
+        "distance": int,
+        "down": int,
+        "is_possessing_team": bool,
+        "yard": int
+    },
+    "quarter": int,
+    "time": string
+}
+```
+
 POST /api/v1/time
 
 ```json
 {
-  "time": "15:00",
-  "quarter": 1
+  "time": string,
+  "quarter": int
 }
 ```
 
