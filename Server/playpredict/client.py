@@ -141,9 +141,10 @@ def play(playnum):
 
 @client_bp.route("/handle_predict", methods=["POST"])
 def handle_predict():
-    their_formation = request.form["theirFormation"]
-    g.game.other_formation = f.Formation(their_formation)
-    g.game.predict()
+    print(str(request.form))
+    #their_formation = request.form["theirformation"]
+    #g.game.other_formation = f.Formation(their_formation)
+    #g.game.predict()
     return redirect("/")
 
 
@@ -158,7 +159,7 @@ def handle_new_play():
 
     g.game.other_formation = f.Formation(their_formation)
     g.game.current_formation = f.Formation(own_formation)
-    g.game.situation.position = s.Position(position, down, distance)
+    #g.game.situation.position = s.Position(position, down, distance)
     g.game.previous_plays_and_situations.append((play, g.game.situation))
 
     g.game.predict()
