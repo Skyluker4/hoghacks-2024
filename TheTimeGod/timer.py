@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import time, requests
 
 def countdown_timer():
@@ -43,4 +45,5 @@ def post_request(time: int, quart: int):
 def main():
     countdown_timer()
 
-main()
+if __name__ == "__main__":
+    main()
