@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template
+from . import game as g
 
 client_bp = Blueprint("client", __name__)
 
+g.initGame()
 
 @client_bp.route("/")
 def index():
