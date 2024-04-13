@@ -19,7 +19,10 @@ def get_formations():
 @api_v1_bp.route("/predictions", methods=["GET"])
 def get_predictions():
     formation_name = request.args.get("formation")
-    g.game.updateCurrentFormation(formation_name)
+
+    if formation_name:
+        g.game.updateCurrentFormation(formation_name)
+    g.game.predict()
 
     return Response(g.game.jsonPredictions(), mimetype='application/json')
 
