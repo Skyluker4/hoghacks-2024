@@ -11,7 +11,7 @@ class Play:
         if os.path.exists(f"./static/images/formations/plays/{formation}/{name}.png"):
             self.image = f"/static/images/formations/plays/{formation}/{name}.png"
         else:
-            self.image = "/images/placeholder.png"
+            self.image = "/static/images/placeholder.png"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

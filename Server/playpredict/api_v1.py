@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Response
 import time as t
 from . import game as g
 
@@ -12,7 +12,7 @@ api_v1_bp = Blueprint(
 # This function gets an array of selectable formations by the current team
 @api_v1_bp.route("/formations", methods=["GET"])
 def get_formations():
-    return g.game.jsonFormations()
+    return Response(g.game.jsonFormations(), mimetype='application/json')
 
 
 # Predict what the next play will be by the other team, given your formation (optionally)
@@ -21,13 +21,13 @@ def get_predictions():
     formation_name = request.args.get("formation")
     g.game.updateCurrentFormation(formation_name)
 
-    return g.game.jsonPredictions()
+    return Response(g.game.jsonPredictions(), mimetype='application/json')
 
 
 @api_v1_bp.route("/situation", methods=["GET"])
 def get_situation():
     # Logic to retrieve situation
-    return g.game.situation.toJSON()
+    return Response(g.game.situation.toJSON(), mimetype='application/json')
 
 
 @api_v1_bp.route("/time", methods=["POST"])

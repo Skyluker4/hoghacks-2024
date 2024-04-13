@@ -1,5 +1,6 @@
 from . import situation as s, formation as f, play as p
 import json
+import os
 
 
 class Game:
@@ -11,8 +12,8 @@ class Game:
         self.situation = s.Situation()
 
         # Current team formations
-        self.other_formation = f.Formation("Test Formation")
-        self.current_formation = f.Formation("Test Formation")
+        self.other_formation = None
+        self.current_formation = None
 
         # Array of predicted plays
         self.predictions = []
@@ -29,7 +30,7 @@ class Game:
 
     # Call after a play is run
     def addPreviousPlay(self, play):
-        self.plays.append(play)
+        self.plays.append((play, self.situation))
         self.predict()
 
     # Call after the other team gets in formation
@@ -91,6 +92,12 @@ class Game:
             self.formations, default=lambda o: o.__dict__, sort_keys=True, indent=4
         )
 
+    def getFootageForPlay(self, play: int):
+        video_paths = ["/static/videos/placeholder.mp4"]
+        if os.path.exists(f"./static/videos/2024/BadTeam/10-10-24-7-00/{play}/"):
+            video_paths = os.listdir(f"/static/videos/2024/BadTeam/10-10-24-7-00/{play}/")
+        return video_paths
+
 def initGame():
     global game
-    game = Game("Bentonville West", "Bentonville", True)
+    game = Game("BadTeam", "GoodTeam", True)
