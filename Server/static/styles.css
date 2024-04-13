@@ -75,6 +75,10 @@ body {
 .column2 {
     background-color: blue;
     color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .videoViewer {
@@ -89,3 +93,20 @@ body {
 .videoViewer > video {
     align-self: center;
 }
+
+
+li {
+    color: white;
+}
+
+hr {
+    background-color: white;
+}
+
+.gameStats {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
