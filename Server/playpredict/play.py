@@ -14,7 +14,7 @@ class Play:
             self.image = f"/static/img/formations/plays/{formation}/{name}.svg"
         else:
             # Randomly select /static/img/playplaceholder#.svg where # is 1-4
-            self.image = f"/static/img/playplaceholder{random.randint(1, 4)}.svg"
+            self.image = f"/static/img/playplaceholder{random.randint(1, 4)}.jpg"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
