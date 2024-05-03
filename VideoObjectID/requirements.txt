@@ -46,7 +46,7 @@ sympy==1.12
 thop==0.1.1.post2209072238
 torch==2.2.2
 torchvision==0.17.2
-tqdm==4.66.2
+tqdm==4.66.3
 triton==2.2.0
 typing-extensions==4.11.0
 tzdata==2024.1
